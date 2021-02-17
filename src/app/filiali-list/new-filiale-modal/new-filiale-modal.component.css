@@ -1,0 +1,17 @@
+.mat-form-field{
+  padding-right: 10px;;
+}
+.content {
+  text-align: center;
+}
+.action {
+  display: flex;
+  justify-content: center;
+}
+.submit {
+  background-color:  #203e72;
+  color: white
+}
+.mat-dialog-title {
+  text-align: center;
+}

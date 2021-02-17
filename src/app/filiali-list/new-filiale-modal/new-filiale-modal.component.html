@@ -1,0 +1,43 @@
+<form [formGroup]="newFilialeForm" nonvalidate>
+  <h1 mat-dialog-title>Nuova Filiale</h1>
+  <div mat-dialog-content class="content" >
+    <mat-form-field>
+      <mat-label>Nome Filiale</mat-label>
+      <input type="text" matInput placeholder="Nome" formControlName="nomeFiliale" required>
+      <mat-error *ngIf="f.nomeFiliale.invalid">Nome e obbligatorio</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Indirizzo</mat-label>
+      <input type="text" matInput placeholder="Indirizzo" formControlName="indirizzo">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Città</mat-label>
+      <input type="text" matInput placeholder="Telefono Fisso" formControlName="citta">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Provincia</mat-label>
+      <input type="text" matInput placeholder="Provincia" formControlName="provincia">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>CAP</mat-label>
+      <input type="text" matInput placeholder="CAP" formControlName="cap">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Telefono</mat-label>
+      <input type="text" matInput placeholder="Telefono" formControlName="telefono">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Fax</mat-label>
+      <input type="text" matInput placeholder="Fax" formControlName="fax">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input type="text" matInput placeholder="Email" formControlName="email" >
+      <mat-error *ngIf="f.email.errors">Email non e valida</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions class="action">
+    <button mat-button (click)="onNoClick()">Cancella</button>
+    <button mat-raised-button (click)="save()" [disabled]="!newFilialeForm.dirty" class="submit">Crea</button>
+  </div>
+  </form>

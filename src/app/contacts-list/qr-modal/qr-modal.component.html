@@ -1,0 +1,8 @@
+<h1 mat-dialog-title class="modal-title">CODICE QR</h1>
+<div mat-dialog-content class="modal-content">
+  <!-- <img class="modal-image" mat-card-image src="./../../assets/qrcode.png" /> -->
+  <ngx-qrcode [value]="contact.vcard" [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" cssClass="bshadow" [width]="300" ></ngx-qrcode>
+</div>
+<div mat-dialog-actions class="modal-action">
+  <button mat-raised-button mat-dialog-close>Chiudi</button>
+</div>

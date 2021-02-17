@@ -1,0 +1,38 @@
+a{
+  text-decoration: none;
+  color: white;
+}
+a:hover, a:active{
+  color: lightgray;
+}
+.nav-caption{
+  display: inline-block;
+  padding-left: 6px;
+}
+.mat-nav-list {
+  width: 250px
+}
+.mat-list-base .mat-list-item .mat-list-item-content {
+  padding: 30px!important;
+}
+.full-width {
+  width: 100%;
+}
+.menu-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+.menu-button.rotated {
+  transform: rotate(180deg);
+}
+.submenu {
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  padding-left: 30px;
+}
+.submenu.expanded {
+  transform: scaleY(1);
+}
+

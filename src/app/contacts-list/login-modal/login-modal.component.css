@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+.title {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+.login-btn {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+.login-card {
+  height: 100%;
+}
+.mat-form-field {
+  width: 100%;
+}
+.return {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}

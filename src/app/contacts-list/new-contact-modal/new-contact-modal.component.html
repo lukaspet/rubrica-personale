@@ -1,0 +1,51 @@
+<form [formGroup]="newContactForm" nonvalidate>
+<h1 mat-dialog-title>Nuovo Contatto</h1>
+<div mat-dialog-content class="content" >
+    <mat-form-field>
+      <mat-label>Nome</mat-label>
+      <input type="text" matInput placeholder="Nome" formControlName="nome" required>
+      <mat-error *ngIf="f.nome.invalid">Nome e obbligatorio</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Cognome</mat-label>
+      <input type="text" matInput placeholder="Cognome" formControlName="cognome" required >
+      <mat-error *ngIf="f.cognome.invalid">Cognome e obbligatorio</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Telefono Fisso</mat-label>
+      <input type="text" matInput placeholder="Telefono Fisso" formControlName="telefonoFisso">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Cellulare</mat-label>
+      <input type="text" matInput placeholder="Cellulare" formControlName="cellulare">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Filiale</mat-label>
+      <mat-select class="form-control" formControlName="filialeId">
+        <mat-option value="" selected >Scegli Filiale </mat-option>
+        <mat-option *ngFor="let filiale of filiali" [value]="filiale.id">{{filiale.nomeFiliale}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input type="text" matInput placeholder="Email" formControlName="email" >
+      <mat-error *ngIf="f.email.errors">Email non e valida</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select class="form-control" formControlName="ruoloId">
+        <mat-option value="" selected >Scegli Ruolo </mat-option>
+        <mat-option *ngFor="let ruolo of ruoli" [value]="ruolo.id">{{ruolo.nomeRuolo}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select class="form-control" formControlName="repartoId">
+        <mat-option value="" selected >Scegli Reparto </mat-option>
+        <mat-option *ngFor="let reparto of reparti" [value]="reparto.id">{{reparto.nomeReparto}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions class="action">
+  <button mat-button (click)="onNoClick()">Cancella</button>
+  <button mat-raised-button (click)="save()" [disabled]="!newContactForm.dirty" class="submit">Crea</button>
+</div>
+</form>

@@ -1,0 +1,162 @@
+<div class="img-top-row" id ="card-grid">
+  <div class="img-top">
+  </div>
+  <mat-toolbar class="list-nav">
+    <mat-toolbar-row class="toolbar-row">
+      <div class="search-text">RICERCA CONTATTI</div>
+      <div class="sidenav-hide">
+        <mat-form-field class="mobile-search-parent" appearance="fill">
+          <button mat-button  disabled matPrefix mat-icon-button>
+            <mat-icon class="search-icon-mobile">search</mat-icon>
+          </button>
+          <input class="search-input-mobile" matInput autocomplete="off" [formControl] = "nameFilter" [value] = "filter"
+          (focus)="checkPlaceHolder()" (blur)="checkPlaceHolder()" placeholder = {{myplaceHolder}}>
+          <button (click) = "clear()" mat-button matSuffix mat-icon-button aria-label="Clear">
+            <mat-icon class = "search-icon-close">close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <span class="menu-spacer"></span>
+      <div class="topnav-content">
+      <mat-form-field class="search-top-bar" floatLabel=never appearance="fill">
+        <button mat-button  disabled matPrefix mat-icon-button>
+          <mat-icon class="search-icon">search</mat-icon>
+        </button>
+        <input class="search-input" matInput autocomplete="off" [formControl] = "nameFilter" [value] = "filter"
+        (focus)="checkPlaceHolder()" (blur)="checkPlaceHolder()" placeholder = {{myplaceHolder}}>
+        <button mat-button (click) = "clear()" matSuffix mat-icon-button aria-label="Clear">
+          <mat-icon class = "search-icon-close">close</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field floatLabel="never" class="select-filiale">
+        <mat-label>FILIALE</mat-label>
+        <mat-select [formControl]="filialeFilter" class="select-filiale-form">
+          <mat-option value="">FILIALE</mat-option>
+          <mat-option *ngFor="let filiale of filiali" [value]="filiale.nomeFiliale">{{filiale.nomeFiliale}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field floatLabel="never" class="select-filiale">
+        <mat-label>RUOLO</mat-label>
+        <mat-select [formControl]="roleFilter" class="select-filiale-form">
+          <mat-option value="">RUOLO</mat-option>
+          <mat-option *ngFor="let ruolo of ruoli" [value]="ruolo.nomeRuolo">{{ruolo.nomeRuolo}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button class="download" mat-button [matMenuTriggerFor]="download" aria-label="Download" >
+        <mat-icon class="download-icon">arrow_circle_down</mat-icon>
+        <div class="button-text">
+        ESPORTA CONTATTI
+        </div>
+      </button>
+      <mat-menu #download="matMenu">
+        <button mat-menu-item (click)="exportToCsvPhone()">
+          <mat-icon>contact_phone</mat-icon>
+          Scarica csv tel
+        </button>
+        <button mat-menu-item (click)="exportToCsvAll()">
+          <mat-icon>contact_page</mat-icon>
+          Scarica contatti
+        </button>
+        <button mat-menu-item (click)="exportToCsvLDAP()">
+          <mat-icon>contacts</mat-icon>
+          Scarica LDAP csv
+        </button>
+      </mat-menu>
+    </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="drop-search-mobile">
+    <mat-form-field floatLabel="never" class="select-filiale-mobile">
+      <mat-label>FILIALE</mat-label>
+      <mat-select [formControl]="filialeFilter" class="select-filiale-form">
+        <mat-option value="">FILIALE</mat-option>
+        <mat-option *ngFor="let filiale of filiali" [value]="filiale.nomeFiliale">{{filiale.nomeFiliale}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field floatLabel="never" class="select-filiale-mobile">
+      <mat-label>RUOLO</mat-label>
+      <mat-select [formControl]="roleFilter" class="select-filiale-form">
+        <mat-option value="">RUOLO</mat-option>
+        <mat-option *ngFor="let ruolo of ruoli" [value]="ruolo.nomeRuolo">{{ruolo.nomeRuolo}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="newCbtn" *ngIf="(isLoggedIn$ | async)">
+    <button class="btnC" mat-button (click)="newContactModal()">Nuovo Contatto</button>
+  </div>
+</div>
+
+<div class="content">
+    <div class="grid-tile" *ngFor="let contact of obs | async">
+  <!-- <div class="grid-tile" *ngFor="let contact of cont"> -->
+    <mat-card class="mat-elevation-z4">
+      <mat-card-header class="card-header">
+        <mat-card-title class="card-title">
+          <div class="qr-title-left">
+            <a href="#" (click)="$event.preventDefault(); modalQrCode(contact)">
+              <!-- the event was propagated to the href of the <a> element, closing immediately the dialog after it was open. Solution to stop propagation $event.preventDefault()-->
+              <ngx-qrcode [value]="contact.vcard"  cssClass="bshadow" [margin]='margin'[width]="110" ></ngx-qrcode>
+            </a>
+          </div>
+          <div class="name">
+            {{contact.cognome}}
+            {{contact.nome}}
+            <div class="ruolo">
+              {{contact.ruolo === 'Non definito' ? '': contact.ruolo | uppercase}}
+              <!-- {{contact.ruolo | uppercase}} -->
+            </div>
+           </div>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-icon class="icon">call</mat-icon>
+        <div class="contact-info">
+          {{contact.telefonoFisso}}
+          <div class="info">
+            Fisso
+          </div>
+        </div>
+      <mat-divider inset="true"></mat-divider>
+      <mat-icon class="icon">smartphone</mat-icon>
+        <div class="contact-info">
+          {{contact.cellulare}}
+          <div class="info">
+            Mobile
+          </div>
+        </div>
+      <mat-divider inset="true"></mat-divider>
+      <mat-icon class="icon">mail_outline</mat-icon>
+        <div class="contact-info">
+          {{contact.email}}
+          <div class="info">
+            Email
+          </div>
+        </div>
+      <mat-divider inset="true"></mat-divider>
+      <mat-icon class="icon">place</mat-icon>
+        <div class="contact-info">
+          {{contact.filiale}}
+          <div class="info">
+            Filiale
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="actions-container">
+        <div class="fab-container" *ngIf="(isLoggedIn$ | async)">
+        <button mat-mini-fab (click)="editContactModal(contact)"class="fab-button">
+          <mat-icon class="fab-icon edit">edit</mat-icon>
+        </button>
+      </div>
+      <div class="fab-container" *ngIf="(isLoggedIn$ | async)">
+        <button mat-mini-fab (click)="deleteContact(contact)" class="fab-button clear">
+          <mat-icon class="fab-icon">clear</mat-icon>
+        </button>
+      </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<div class="bottom-row">
+  <mat-paginator [pageSizeOptions]="[24, 50, 100]" (page)="onAllUserPaginateChange($event)"></mat-paginator>
+  </div>
+<notifier-container></notifier-container>

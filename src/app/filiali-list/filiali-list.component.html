@@ -1,0 +1,130 @@
+<div class="img-top-row" id ="card-grid">
+  <div class="img-top">
+  </div>
+  <mat-toolbar class="list-nav">
+    <mat-toolbar-row class="toolbar-row">
+      <div class="search-text">RICERCA FILIALI</div>
+      <div class="sidenav-hide">
+        <mat-form-field class="mobile-search-parent" appearance="fill">
+          <button mat-button  disabled matPrefix mat-icon-button>
+            <mat-icon class="search-icon-mobile">search</mat-icon>
+          </button>
+          <input class="search-input-mobile" matInput [(ngModel)] = "filter" (keyup)="applyFilter($event)" (focus)="checkPlaceHolder()" (blur)="checkPlaceHolder()" placeholder = {{myplaceHolder}}>
+          <button (click) = "clear()" mat-button matSuffix mat-icon-button aria-label="Clear">
+            <mat-icon class = "search-icon-close">close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <span class="menu-spacer"></span>
+      <div class="topnav-content">
+        <mat-form-field class="search-top-bar" floatLabel=never appearance="fill">
+          <button mat-button  disabled matPrefix mat-icon-button>
+            <mat-icon class="search-icon">search</mat-icon>
+          </button>
+          <input class="search-input" matInput [(ngModel)] = "filter" (keyup)="applyFilter($event)" (focus)="checkPlaceHolder()" (blur)="checkPlaceHolder()" placeholder = {{myplaceHolder}}>
+          <button mat-button (click) = "clear()" matSuffix mat-icon-button aria-label="Clear">
+            <mat-icon class="search-icon-close">close</mat-icon>
+          </button>
+        </mat-form-field>
+        <button class="download" mat-stroked-button [matMenuTriggerFor]="download" aria-label="Download" >
+          <mat-icon class="download-icon">arrow_circle_down</mat-icon>
+          ESPORTA FILIALI
+        </button>
+        <mat-menu #download="matMenu">
+          <button mat-menu-item (click)="exportToCsvFiliali()">
+            <mat-icon>location_city</mat-icon>
+            Scarica csv filiali
+          </button>
+        </mat-menu>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="newCbtn" *ngIf="(isLoggedIn$ | async)">
+    <button class="btnC" mat-button (click)="newFilialeModal()">Nuova Filiale</button>
+  </div>
+</div>
+
+<div class="content">
+    <div class="grid-tile" *ngFor="let filiale of obs | async">
+  <!-- <div class="grid-tile" *ngFor="let contact of cont"> -->
+    <mat-card class="mat-elevation-z4">
+      <mat-card-header class="card-header">
+        <mat-card-title class="card-title">
+          <div class="qr-title-left">
+            <a href="#" (click)="$event.preventDefault(); modalQrCode(filiale)">
+              <!-- the event was propagated to the href of the <a> element, closing immediately the dialog after it was open. Solution to stop propagation $event.preventDefault()-->
+              <ngx-qrcode [value]="filiale.vcard"  cssClass="bshadow" [margin]='margin'[width]="110" ></ngx-qrcode>
+            </a>
+          </div>
+          <div class="name">
+            {{filiale.nomeFiliale}}
+            <!-- <div class="ruolo">
+              {{contact.ruolo === 'Non definito' ? '': contact.ruolo | uppercase}}
+            </div> -->
+           </div>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+      <div class="info-all">
+        <mat-icon class="icon">call</mat-icon>
+        <div class="contact-info">
+          {{filiale.telefono}}
+          <div class="info-text">
+            Telefono
+          </div>
+        </div>
+      </div>
+      <mat-divider inset="true"></mat-divider>
+      <div class="info-all">
+        <mat-icon class="icon">place</mat-icon>
+        <div class="contact-info">
+        {{filiale.indirizzo}}
+        <br>
+        {{filiale.cap}} {{filiale.citta}} {{filiale.provincia === null || filiale.provincia === '' ? '' : '&#40;' + filiale.provincia + '&#41;'}}
+          <div class="info-text">
+            Indirizzo
+          </div>
+        </div>
+      </div>
+      <mat-divider inset="true"></mat-divider>
+      <div class="info-all">
+        <mat-icon class="icon">email</mat-icon>
+        <div class="contact-info">
+          {{filiale.email}}
+          <div class="info-text">
+            Email
+          </div>
+        </div>
+      </div>
+      <mat-divider inset="true"></mat-divider>
+      <div class="info-all">
+        <mat-icon class="icon">print</mat-icon>
+        <div class="contact-info">
+          {{filiale.fax}}
+          <div class="info-text">
+            Fax
+          </div>
+        </div>
+      </div>
+      </mat-card-content>
+      <mat-card-actions class="actions-container">
+        <div class="fab-container" *ngIf="(isLoggedIn$ | async)">
+        <button mat-mini-fab (click)="updateFilialeModal(filiale)"class="fab-button">
+          <mat-icon class="fab-icon edit">edit</mat-icon>
+        </button>
+      </div>
+      <div class="fab-container" *ngIf="(isLoggedIn$ | async)">
+        <button mat-mini-fab (click)="deleteFiliale(filiale)" class="fab-button clear">
+          <mat-icon class="fab-icon">clear</mat-icon>
+        </button>
+      </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<div class="bottom-row">
+  <mat-paginator [pageSizeOptions]="[24, 50, 100]" (page)="onAllUserPaginateChange($event)"></mat-paginator>
+  </div>
+<notifier-container></notifier-container>
+

@@ -1,0 +1,31 @@
+<mat-nav-list>
+  <mat-list-item>
+    <a href="http://10.1.100.225/inzanutta/">
+    Torna alla home
+    </a>
+    <mat-icon mat-list-icon>home</mat-icon>
+  </mat-list-item>
+  <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+    <span class="full-width" *ngIf="isExpanded || isShowing">Esporta contatti</span>
+    <mat-icon mat-list-icon>arrow_circle_downe</mat-icon>
+    <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+  </mat-list-item>
+  <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+    <button mat-menu-item (click)="exportToCsvPhone()">
+      <mat-icon>contact_phone</mat-icon>
+      Scarica csv tel
+    </button>
+    <button mat-menu-item (click)="exportToCsvAll()">
+      <mat-icon>contact_page</mat-icon>
+      Scarica csv contatti
+    </button>
+    <button mat-menu-item (click)="exportToCsvLDAP()">
+      <mat-icon>contacts</mat-icon>
+      Scarica contatti LDAP
+    </button>
+    <button mat-menu-item (click)="exportToCsvFiliali()">
+      <mat-icon>contacts</mat-icon>
+      Scarica csv filiali
+    </button>
+  </div>
+</mat-nav-list>

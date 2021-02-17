@@ -1,0 +1,180 @@
+@media (min-width: 797px) {
+  .short-text {
+    display: none;
+    color: white;
+  }
+  .long-text {
+    display: inline-flex;
+    color:white;
+  }
+}
+@media (max-width: 796px) {
+  .short-text {
+    display: inline-flex;
+    color:white;
+  }
+  .long-text {
+    display: none;
+    color: white;
+  }
+
+}
+@media (min-width: 900px) {
+  .sidenav-hide {
+    display: none;
+  }
+  .mobile-search {
+    display: none;
+  }
+}
+@media (max-width: 899px) {
+  .logo {
+    padding-left: 10px!important;
+  }
+  .back-home {
+    display: none;
+  }
+}
+.topnav-content {
+  color: white;
+}
+.user-button {
+  border-bottom: none;
+}
+.user-text {
+  padding-right: 6px;
+}
+.user-button:hover {
+  color: #c5c5c5;
+}
+.user-text:hover {
+  color: #c5c5c5;
+}
+.mobile-search {
+  background-color: rgb(228, 228, 228);
+}
+.sidenav-hide {
+  color: white;
+}
+.top-nav {
+  width: 100%;
+  background-color:#203e72;
+  z-index: 998;
+  position: fixed;
+
+}
+.mat-toolbar-row {
+  box-shadow:  0 3px 5px -1px rgba(0,0,0,.2),
+               0 6px 10px 0 rgba(0,0,0,.14),
+               0 1px 18px 0 rgba(0,0,0,.12);
+}
+.login {
+  color: white;
+}
+.fa-user{
+  color:  white;
+}
+.login:hover {
+  color: #c5c5c5;
+}
+.btn:hover .button-text{
+  color: #8f8786;
+}
+.fa-home{
+  color:  white;
+}
+.btn:hover .fa-home{
+  color: #c5c5c5;
+}
+.fa-sign-in-alt{
+  color:  white;
+}
+.btn:hover .fa-sign-in-alt{
+  color:  #c5c5c5;
+}
+.menu-spacer {
+  flex: 1 1 auto;
+}
+.search-top-bar {
+  min-width: 80px;
+  max-width: 150px;
+  width: 100%;
+  color: white;
+  font-size: 12px;
+  padding-right: 25px;
+}
+.search-top-bar-mobile {
+  width: 100%;
+}
+.search-input {
+  background-color:#203e72;
+  color: white;
+}
+.search-icon {
+  color: white!important;
+  padding-top: 7px;
+}
+.search-icon-mobile {
+  color: black;
+  padding-top: 7px;
+}
+.search-control{
+  flex: 1;
+  font-size: 1rem;
+  border: 0;
+  outline: none;
+  padding-left: 10px;
+}
+.additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+.select-filiale{
+  color:white;
+  font-size: 12px;
+  width: 80px;
+  padding-right: 25px;
+}
+.select-filiale-form{
+  color:white;
+  font-size: small!important;
+}
+.download {
+  color: white;
+  font-size: 12px;
+  font-weight: 400;
+  padding-bottom: 5px;
+}
+.button-text {
+  display: inline;
+  border-bottom:1px solid white;
+  padding-bottom:4px;
+}
+.logo {
+  padding-left: 65px;
+  width: 222px;
+  height: 55px;
+  /* height: 20%; */
+}
+.link-logo {
+  margin-top: 9px;
+}
+.toolbar-row {
+  height: 70px;
+}
+.back-home {
+  margin-left: 15px;
+  color: white;
+  font-size: 15px;
+  text-decoration: none;
+}
+.back-home:hover {
+  color: #c5c5c5;
+}
+.icon-back-home:hover {
+  color: #c5c5c5;
+}
+.icon-back-home {
+  vertical-align: text-bottom;
+  height: 21px;
+}

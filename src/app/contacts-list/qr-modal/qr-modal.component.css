@@ -1,0 +1,28 @@
+/* .modal-image {
+  height: 450px;
+  width: 450px;
+} */
+img {
+  display: block;
+  max-width: 70%;
+}
+.modal-content {
+  display: flex;
+  justify-content: center;
+}
+.modal-action {
+  display: flex;
+  justify-content: center;
+}
+.modal-title {
+  text-align: center;
+  font-size: 30px;
+  padding-bottom: 20px;
+}
+.bshadow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(5px 5px 5px #222222);
+  opacity: .5;
+}
