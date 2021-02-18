@@ -70,7 +70,6 @@ export class ContactsListComponent implements OnInit, OnDestroy {
     this.nameFilter.valueChanges
       .subscribe(
         name => {
-          console.log(name);
           this.filter = name;
           this.filterValues.nome = name;
           this.dataSource.filter = JSON.stringify(this.filterValues).toLowerCase();
