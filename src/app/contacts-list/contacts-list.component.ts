@@ -70,6 +70,7 @@ export class ContactsListComponent implements OnInit, OnDestroy {
     this.nameFilter.valueChanges
       .subscribe(
         name => {
+          console.log(name);
           this.filter = name;
           this.filterValues.nome = name;
           this.dataSource.filter = JSON.stringify(this.filterValues).toLowerCase();
@@ -197,7 +198,9 @@ END:VCARD
         const nomecognome = data.nome + ' ' + data.cognome;
         const cognomenome = data.cognome + ' ' + data.nome;
         return  (nomecognome.toLowerCase().indexOf(searchTerms.nome) !== -1
-          || cognomenome.toLowerCase().indexOf(searchTerms.nome) !== -1)
+          || cognomenome.toLowerCase().indexOf(searchTerms.nome) !== -1
+          || data.filiale.toLowerCase().indexOf(searchTerms.nome) !== -1
+          || data.ruolo.toLowerCase().indexOf(searchTerms.nome) !== -1)
           && data.filiale.toLowerCase().indexOf(searchTerms.filiale) !== -1
           && data.ruolo.toLowerCase().indexOf(searchTerms.ruolo) !== -1;
       };
