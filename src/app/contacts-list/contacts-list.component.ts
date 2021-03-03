@@ -32,6 +32,7 @@ export interface DialogData {
 })
 export class ContactsListComponent implements OnInit, OnDestroy {
   @Output() public sidenavToggle = new EventEmitter();
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   isLoggedIn$: Observable<boolean>;
   elementType = NgxQrcodeElementTypes.CANVAS;
   correctionLevel = NgxQrcodeErrorCorrectionLevels.LOW;
@@ -48,8 +49,8 @@ export class ContactsListComponent implements OnInit, OnDestroy {
   myplaceHolder = 'CERCA NOMINATIVO';
   filter = '';
 
-  dataSource = new MatTableDataSource<Contact>();
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  dataSource: MatTableDataSource<Contact>;
+  // dataSource = new MatTableDataSource<Contact>();
   obs: Observable<any>;
   filterValues = {
     nome: '',
@@ -60,6 +61,7 @@ export class ContactsListComponent implements OnInit, OnDestroy {
               private filialeService: FilialeService, private ruoloService: RuoloService, private repartoService: RepartoService,
               private exportService: ExportService, private callFromSidenav: SearchService) {
     this.isLoggedIn$ = this.authservice.isLogged;
+
   }
   ngOnInit() {
     this.getFiliale();
@@ -73,6 +75,9 @@ export class ContactsListComponent implements OnInit, OnDestroy {
           this.filter = name;
           this.filterValues.nome = name;
           this.dataSource.filter = JSON.stringify(this.filterValues).toLowerCase();
+          if (this.dataSource.paginator) {
+            this.dataSource.paginator.firstPage();
+          }
         }
       );
     this.filialeFilter.valueChanges
@@ -80,6 +85,9 @@ export class ContactsListComponent implements OnInit, OnDestroy {
         filiale => {
           this.filterValues.filiale = filiale;
           this.dataSource.filter = JSON.stringify(this.filterValues).toLowerCase();
+          if (this.dataSource.paginator) {
+            this.dataSource.paginator.firstPage();
+          }
         }
       );
     this.roleFilter.valueChanges
@@ -87,6 +95,9 @@ export class ContactsListComponent implements OnInit, OnDestroy {
         ruolo => {
           this.filterValues.ruolo = ruolo;
           this.dataSource.filter = JSON.stringify(this.filterValues).toLowerCase();
+          if (this.dataSource.paginator) {
+            this.dataSource.paginator.firstPage();
+          }
         }
       );
     if (this.callFromSidenav.subsVar === undefined) {
@@ -126,10 +137,10 @@ export class ContactsListComponent implements OnInit, OnDestroy {
           }
         );
       this.contacts.every(row => this.getVcard(row)); // for every element in array execute function to fill qrcode data
-      this.dataSource.data = this.contacts;
-      this.dataSource.filterPredicate = this.tableFilter();
-
+      this.dataSource = new MatTableDataSource<Contact>(this.contacts);
+      // this.dataSource.data = this.contacts;
       this.dataSource.paginator = this.paginator;
+      this.dataSource.filterPredicate = this.tableFilter();
       this.obs = this.dataSource.connect();
     });
   }
@@ -188,10 +199,9 @@ END:VCARD
       this.dataSource.data = this.contacts;
     });
   }
-  tableFilter(): (data: any, filter: string) => boolean {
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+  tableFilter(): (data: any, filter: string) => boolean { // function for filtering through search term or dropdown
+    this.dataSource.paginator.firstPage(); // paginator to first page
+
     const filterFunction = (data: any, filter: string): boolean => {
         const searchTerms = JSON.parse(filter);
         const nomecognome = data.nome + ' ' + data.cognome;
@@ -199,7 +209,10 @@ END:VCARD
         return  (nomecognome.toLowerCase().indexOf(searchTerms.nome) !== -1
           || cognomenome.toLowerCase().indexOf(searchTerms.nome) !== -1
           || data.filiale.toLowerCase().indexOf(searchTerms.nome) !== -1
-          || data.ruolo.toLowerCase().indexOf(searchTerms.nome) !== -1)
+          || data.ruolo.toLowerCase().indexOf(searchTerms.nome) !== -1
+          || data.telefonoFisso.toLowerCase().indexOf(searchTerms.nome) !== -1
+          || data.cellulare.toLowerCase().indexOf(searchTerms.nome) !== -1
+          || data.email.toLowerCase().indexOf(searchTerms.nome) !== -1)
           && data.filiale.toLowerCase().indexOf(searchTerms.filiale) !== -1
           && data.ruolo.toLowerCase().indexOf(searchTerms.ruolo) !== -1;
       };
@@ -223,7 +236,7 @@ END:VCARD
   }
   onAllUserPaginateChange(event: any) {
     const matTable = document.getElementById('card-grid');
-    matTable.scrollIntoView();
+    matTable.scrollIntoView({behavior: 'smooth' });
   }
   newContactModal() {
     const dialogRef = this.dialog.open(NewContactModalComponent, {

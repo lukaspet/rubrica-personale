@@ -85,7 +85,6 @@
     <button class="btnC" mat-button (click)="newContactModal()">Nuovo Contatto</button>
   </div>
 </div>
-
 <div class="content">
     <div class="grid-tile" *ngFor="let contact of obs | async">
   <!-- <div class="grid-tile" *ngFor="let contact of cont"> -->
@@ -158,5 +157,6 @@
 </div>
 <div class="bottom-row">
   <mat-paginator [pageSizeOptions]="[24, 50, 100]" (page)="onAllUserPaginateChange($event)"></mat-paginator>
-  </div>
+</div>
 <notifier-container></notifier-container>
+<app-scroll-top></app-scroll-top>

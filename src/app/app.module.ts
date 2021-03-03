@@ -41,6 +41,7 @@ import { FilialiListComponent } from './filiali-list/filiali-list.component';
 import { EditFilialeModalComponent } from './filiali-list/edit-filiale-modal/edit-filiale-modal.component';
 import { NewFilialeModalComponent } from './filiali-list/new-filiale-modal/new-filiale-modal.component';
 import { HelpModalComponent } from './contacts-list/help-modal/help-modal.component';
+import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 registerLocaleData(localeIt);
 
 const customNotifierOptions: NotifierOptions = {
@@ -101,6 +102,7 @@ const customNotifierOptions: NotifierOptions = {
     EditFilialeModalComponent,
     NewFilialeModalComponent,
     HelpModalComponent,
+    ScrollTopComponent,
   ],
   imports: [
     BrowserModule,
