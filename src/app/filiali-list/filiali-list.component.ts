@@ -1,3 +1,4 @@
+import { ConfirmDialogModel, ConfirmModalComponent } from './../modal/confirm-modal/confirm-modal.component';
 import { NewFilialeModalComponent } from './new-filiale-modal/new-filiale-modal.component';
 import { EditFilialeModalComponent } from './edit-filiale-modal/edit-filiale-modal.component';
 import { SearchService } from './../common/services/search.service';
@@ -15,7 +16,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 import { AuthService } from './../common/services/auth.service';
-
 export interface DialogData {
   qrcode: string;
 }
@@ -40,7 +40,8 @@ export class FilialiListComponent implements OnInit, OnDestroy {
   myplaceHolder = 'CERCA FILIALE';
   filter = '';
 
-  dataSource = new MatTableDataSource<Filiale>();
+  dataSource: MatTableDataSource<Filiale>;
+  // dataSource = new MatTableDataSource<Filiale>();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   obs: Observable<any>;
   filterValues = {
@@ -110,7 +111,10 @@ END:VCARD
       //   this.getVcard(this.filiali[i]);
       // }
 
-      this.dataSource.data = this.filiali;
+
+      this.dataSource = new MatTableDataSource<Filiale>(this.filiali);
+
+      // this.dataSource.data = this.filiali;
       // this.dataSource.filterPredicate = this.tableFilter();
 
       this.dataSource.paginator = this.paginator;
@@ -193,6 +197,22 @@ END:VCARD
       // if (result.event !== 'Cancel') {
         if (result) {
           this.updateFiliale(result);
+        }
+    });
+  }
+  deleteFilialeModal(filiale: Filiale) {
+    const message = `Sei sicuro di voler cancellare filiale ` + filiale.nomeFiliale + `?`;
+
+    const dialogData = new ConfirmDialogModel('Elimina Contatto', message);
+
+    const dialogRef = this.dialog.open(ConfirmModalComponent, {
+      maxWidth: '400px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if (result === true) {
+          console.log(result);
+          this.deleteFiliale(filiale);
         }
     });
   }

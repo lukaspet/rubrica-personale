@@ -76,7 +76,9 @@
         </div>
       </div>
       <mat-divider inset="true"></mat-divider>
+      <a target="_blank" href="https://www.google.it/maps/place/?t=k&q=zanutta,+{{filiale.provincia}},+{{filiale.cap}},+{{filiale.citta}},+{{filiale.indirizzo}}" >
       <div class="info-all">
+        <!-- https://www.google.it/maps/place/?t=k&q=Udine,+33052,+Cervignano+del+Friuli,+Strassoldo,+Via+Cisis,+29 -->
         <mat-icon class="icon">place</mat-icon>
         <div class="contact-info">
         {{filiale.indirizzo}}
@@ -87,6 +89,7 @@
           </div>
         </div>
       </div>
+    </a>
       <mat-divider inset="true"></mat-divider>
       <div class="info-all">
         <mat-icon class="icon">email</mat-icon>
@@ -115,7 +118,7 @@
         </button>
       </div>
       <div class="fab-container" *ngIf="(isLoggedIn$ | async)">
-        <button mat-mini-fab (click)="deleteFiliale(filiale)" class="fab-button clear">
+        <button mat-mini-fab (click)="deleteFilialeModal(filiale)" class="fab-button clear">
           <mat-icon class="fab-icon">clear</mat-icon>
         </button>
       </div>

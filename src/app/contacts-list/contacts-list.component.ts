@@ -20,6 +20,7 @@ import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiedi
 import { AuthService } from './../common/services/auth.service';
 import { NewContactModalComponent } from './../contacts-list/new-contact-modal/new-contact-modal.component';
 import { EditContactModalComponent } from './edit-contact-modal/edit-contact-modal.component';
+import { ConfirmDialogModel, ConfirmModalComponent } from './../modal/confirm-modal/confirm-modal.component';
 
 export interface DialogData {
   qrcode: string;
@@ -272,6 +273,22 @@ END:VCARD
     dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.updateContact(result);
+        }
+    });
+  }
+  deleteContactModal(contact: Contact) {
+    const message = `Sei sicuro di voler cancellare contatto ` + contact.nome + ` ` + contact.cognome + `?`;
+
+    const dialogData = new ConfirmDialogModel('Elimina Contatto', message);
+
+    const dialogRef = this.dialog.open(ConfirmModalComponent, {
+      maxWidth: '400px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if (result === true) {
+          console.log(result);
+          this.deleteContact(contact);
         }
     });
   }

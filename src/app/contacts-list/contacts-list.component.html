@@ -124,13 +124,17 @@
           </div>
         </div>
       <mat-divider inset="true"></mat-divider>
-      <mat-icon class="icon">mail_outline</mat-icon>
-        <div class="contact-info">
-          {{contact.email}}
-          <div class="info">
-            Email
+      <a href="mailto:{{contact.email}}">
+        <div class="email-link">
+          <mat-icon class="icon">mail_outline</mat-icon>
+          <div class="contact-info">
+            {{contact.email}}
+            <div class="info">
+              Email
+            </div>
           </div>
         </div>
+      </a>
       <mat-divider inset="true"></mat-divider>
       <mat-icon class="icon">place</mat-icon>
         <div class="contact-info">
@@ -147,7 +151,7 @@
         </button>
       </div>
       <div class="fab-container" *ngIf="(isLoggedIn$ | async)">
-        <button mat-mini-fab (click)="deleteContact(contact)" class="fab-button clear">
+        <button mat-mini-fab (click)="deleteContactModal(contact)" class="fab-button clear">
           <mat-icon class="fab-icon">clear</mat-icon>
         </button>
       </div>

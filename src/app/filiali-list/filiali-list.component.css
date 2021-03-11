@@ -49,18 +49,14 @@
   display: contents;
 }
 .name {
-  /* padding-left: 20px;
-  padding-top: 20px; */
   font-size: 15px;
   flex-grow: 4;
   align-self: center;
-    /* text-align: center; */
   justify-content: flex-start;
 }
 .card-header {
   display: flex;
   justify-content: center;
-  /* word-break: break-all; */
 }
 .card-title {
   padding-top: 30px;
@@ -80,7 +76,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* display: inline-block; */
   font-size: 15px;
   padding-left: 20px;
   vertical-align: middle;
@@ -385,4 +380,8 @@
   padding-top: 7px;
   font-size: 24px;
   margin-left: 8px!important;
+}
+.mat-card-content a {
+  text-decoration: none;
+  color: black;
 }
