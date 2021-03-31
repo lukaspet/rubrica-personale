@@ -68,7 +68,7 @@ export class ContactsListComponent implements OnInit, OnDestroy {
     this.getFiliale();
     this.getRuolo();
     this.getReparto();
-    this.getContact();
+
 
     this.nameFilter.valueChanges
       .subscribe(
@@ -160,7 +160,10 @@ END:VCARD
   }
   getFiliale(): void {
     this.filialeService.getFiliali()
-    .subscribe(filiali => this.filiali = filiali);
+    .subscribe(filiali => {
+      this.filiali = filiali;
+      this.getContact();
+    });
   }
   getRuolo() {
     this.ruoloService.getRuoli()

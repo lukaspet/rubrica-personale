@@ -32,7 +32,7 @@ Contact.create = (newContact, result) => {
 };
 
 Contact.getAll = result => {
-  sql.query("SELECT * FROM rubrica_personale r ORDER BY r.cognome ASC, r.nome ASC", (err, res) => {
+  sql.query("SELECT * FROM rubrica_personale r JOIN ruolo ru ON r.ruoloId = ru.id WHERE ru.visibilieRubrica = 0 ORDER BY r.cognome ASC, r.nome ASC", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

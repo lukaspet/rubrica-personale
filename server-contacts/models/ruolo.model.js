@@ -19,7 +19,7 @@ Ruolo.create = (newRuolo, result) => {
 };
 
 Ruolo.getAll = result => {
-  sql.query("SELECT * FROM ruolo r ORDER BY r.nomeRuolo ASC", (err, res) => {
+  sql.query("SELECT * FROM ruolo r WHERE r.visibilieRubrica = 0 ORDER BY r.nomeRuolo ASC", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
